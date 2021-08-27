@@ -22,19 +22,19 @@ local gameplaycam = nil
 local cam = nil
 
 
-Citizen.CreateThread(function()
+--[[Citizen.CreateThread(function() --ESX
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(10)
 	end
-end)
+end)]]
 
 
 RegisterNetEvent('LSC:installMod')
 AddEventHandler('LSC:installMod', function()
-	local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1), false)
-	myCar = ESX.Game.GetVehicleProperties(vehicle)
-	TriggerServerEvent('LSC:refreshOwnedVehicle', myCar)
+	local vehicle = GetVehiclePedIsIn(localPed(), false)
+	--myCar = ESX.Game.GetVehicleProperties(vehicle)
+	--TriggerServerEvent('LSC:refreshOwnedVehicle', myCar)
 end)
 
 
@@ -49,7 +49,7 @@ local function f(n)
 end
 
 local function LocalPed()
-	return GetPlayerPed(-1)
+	return PlayerPedId()
 end
 
 local function firstToUpper(str)
@@ -147,8 +147,8 @@ end
 
 RegisterNetEvent('LSC:cancelInstallMod')
 AddEventHandler('LSC:cancelInstallMod', function()
-	local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1), false)
-	ESX.Game.SetVehicleProperties(vehicle, myCar)
+	local vehicle = GetVehiclePedIsIn(localPed(), false)
+	--ESX.Game.SetVehicleProperties(vehicle, myCar)
 end)
 
 
@@ -1346,6 +1346,12 @@ AddEventHandler('playerSpawned', function(spawn)
 		TriggerServerEvent('getGarageInfo')
 		firstspawn = 1
 	end
+end)
+
+RegisterCommand('lsblips', function()
+    AddBlips()
+    TriggerServerEvent('getGarageInfo')
+    firstspawn = 1
 end)
 
 --Locks the garage if someone enters it

@@ -1,5 +1,4 @@
-ESX = nil
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
 local Vehicles = nil
 
 
@@ -11,6 +10,7 @@ local tbl = {
 [5] = {locked = false, player = nil},
 [6] = {locked = false, player = nil},
 }
+
 RegisterServerEvent('lockGarage')
 AddEventHandler('lockGarage', function(b,garage)
 	tbl[tonumber(garage)].locked = b
@@ -43,21 +43,21 @@ RegisterServerEvent("LSC:buttonSelected")
 AddEventHandler("LSC:buttonSelected", function(name, button)
 
 	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	mymoney = tonumber(button.price)
+	--local xPlayer = ESX.GetPlayerFromId(_source)
+	--mymoney = tonumber(button.price)
 	if button.price then -- check if button have price
-		if button.price < xPlayer.getMoney() then
+		if button.price < button.price + 1 then
 			TriggerClientEvent("LSC:buttonSelected", source,name, button, true)
-			xPlayer.removeMoney(button.price)
-			TriggerClientEvent('LSC:installMod', _source)
+			--xPlayer.removeMoney(button.price)
+			--TriggerClientEvent('LSC:installMod', _source)
 		else
 			TriggerClientEvent("LSC:buttonSelected", source,name, button, false)
-			TriggerClientEvent('LSC:cancelInstallMod', _source)
+			--TriggerClientEvent('LSC:cancelInstallMod', _source)
 		end
 	end
 end)
 
-RegisterServerEvent('LSC:refreshOwnedVehicle')
+--[[RegisterServerEvent('LSC:refreshOwnedVehicle')
 AddEventHandler('LSC:refreshOwnedVehicle', function(myCar)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -80,7 +80,7 @@ AddEventHandler('LSC:refreshOwnedVehicle', function(myCar)
 			end
         end
     end)
-end)
+end)]]
 
 RegisterServerEvent("LSC:finished")
 AddEventHandler("LSC:finished", function(veh)
